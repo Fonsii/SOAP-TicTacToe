@@ -19,6 +19,11 @@ namespace HolaMundo.ECCI_TicTacToe {
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         string doMove(int move);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#newFunction", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        string newFunction(string move);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -50,6 +55,10 @@ namespace HolaMundo.ECCI_TicTacToe {
         
         public string doMove(int move) {
             return base.Channel.doMove(move);
+        }
+        
+        public string newFunction(string move) {
+            return base.Channel.newFunction(move);
         }
     }
 }

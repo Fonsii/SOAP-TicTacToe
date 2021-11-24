@@ -26,6 +26,14 @@
 	<message name="moveOut">
 		<part name="return" type="xsd:string"/>
 	</message>
+	
+	<message name="stringIn">
+		<part name="move" type="xsd:string"/>
+	</message>
+
+	<message name="stringOut">
+		<part name="return" type="xsd:string"/>
+	</message>
 
 
 	<!-- Puerto para comunicar con la clase TicTacToe, "ECCI_TicTacToePort" -->
@@ -36,13 +44,17 @@
 			<input message="tns:moveIn"/>
 			<output message="tns:moveOut"/>
 		</operation>
+		<operation name="newFunction">
+			<documentation></documentation>
+			<input message="tns:stringIn"/>
+			<output message="tns:stringOut"/>
+		</operation>
 	</portType>
 
 	<!-- Vinculación de los llamados con el transporte - RPC, SOAP/Encoded over HTTP -->
 
 	<binding name="ECCI_TicTacToeBinding" type="tns:ECCI_TicTacToePort">
-		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-		
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>		
 		<operation name="doMove">
 			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#doMove"/>
 			<input>
@@ -54,6 +66,19 @@
 				<soap:body use="encoded"
 				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
 						   namespace="urn:ECCI_TicTacToe"/>
+			</output>
+		</operation>
+		<operation name="newFunction">
+			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#newFunction"/>
+			<input>
+				<soap:body use="encoded"
+							encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+							namespace="urn:ECCI_TicTacToe"/>
+			</input>
+			<output>
+				<soap:body use="encoded"
+							encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+							namespace="urn:ECCI_TicTacToe"/>
 			</output>
 		</operation>
 	</binding>

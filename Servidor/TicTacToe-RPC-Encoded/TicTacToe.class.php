@@ -91,9 +91,12 @@ class TicTacToe {
         }
     }
 
+    public function newFunction($move) {
+        return $move . " sd";
+    }
+
     /**
 	 * TicTacToe::computerMove() Realiza el movimiento de la computadora.
-	 * 
 	 * @return string
 	 **/
     private function computerMove() {

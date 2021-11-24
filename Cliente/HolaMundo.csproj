@@ -119,6 +119,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="App.ico" />
+    <None Include="Connected Services\ECCI_HolaMundo\ECCI_TicTacToe.wsdl" />
     <None Include="Connected Services\ECCI_TicTacToe\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
