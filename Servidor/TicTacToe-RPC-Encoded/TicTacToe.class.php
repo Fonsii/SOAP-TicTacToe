@@ -55,8 +55,7 @@ class TicTacToe {
 	 * 
 	 * @param int $nextMove
 	 **/
-	public function __construct($nextMove = 0) {
-		$this->nextMove = $nextMove;
+	public function __construct() {
 	}
 
     /**
@@ -66,9 +65,14 @@ class TicTacToe {
      * @return string
      **/
     public function doMove($move){
+
         if ($this->nextMove == 0){
-            $this->nextMove = $move;
-            return $this->nextMove;
+            if ($this->playerMove($move) === "0"){
+                $this->nextMove = 1;
+                return "0";
+            }else{
+                return "1";
+            }
         }else{
             $this->nextMove = 0;
             return $this->computerMove();
@@ -102,7 +106,7 @@ class TicTacToe {
             $move = rand(0,8);
         }
         $this->board[$move] = 1;
-        return "3";
+        return "0";
     }
 }
 
