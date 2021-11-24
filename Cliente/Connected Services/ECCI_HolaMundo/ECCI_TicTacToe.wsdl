@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ECCI_TicTacToe" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="ECCI_TicTacToe" targetNamespace="urn:ECCI_TicTacToe" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:ECCI_TicTacToe" />
+  </wsdl:types>
+  <wsdl:message name="moveIn">
+    <wsdl:part name="move" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="moveOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="ECCI_TicTacToePort">
+    <wsdl:operation name="doMove">
+      <documentation>Realiza el siguiente movimiento.</documentation>
+      <wsdl:input message="tns:moveIn" />
+      <wsdl:output message="tns:moveOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ECCI_TicTacToeBinding" type="tns:ECCI_TicTacToePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="doMove">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#doMove" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ECCI_TicTacToeService">
+    <wsdl:port name="ECCI_TicTacToePort" binding="tns:ECCI_TicTacToeBinding">
+      <soap:address location="http://localhost/TicTacToe-RPC-Encoded/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

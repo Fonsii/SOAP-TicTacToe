@@ -67,8 +67,8 @@ class TicTacToe {
      **/
     public function doMove($move){
         if ($this->nextMove == 0){
-            $this->nextMove = 1;
-            return $this->playerMove($move);
+            $this->nextMove = $move;
+            return $this->nextMove;
         }else{
             $this->nextMove = 0;
             return $this->computerMove();
@@ -102,7 +102,7 @@ class TicTacToe {
             $move = rand(0,8);
         }
         $this->board[$move] = 1;
-        return "0";
+        return "3";
     }
 }
 

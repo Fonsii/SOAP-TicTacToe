@@ -22,7 +22,7 @@ namespace HolaMundo
 		private System.ComponentModel.Container components = null;
 
 		// private HolaMundo.ECCI_HolaMundo.ECCI_HolaMundo ws; // .NET 2.0
-		private HolaMundo.ECCI_HolaMundo.ECCI_HolaMundoPortClient ws;
+		private HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient ws;
 
 		public frmHolaMundo()
 		{
@@ -34,7 +34,8 @@ namespace HolaMundo
 			//
 			// TODO: Agregar código de constructor después de llamar a InitializeComponent
 			//
-			ws = new HolaMundo.ECCI_HolaMundo.ECCI_HolaMundoPortClient();
+			Console.WriteLine("jknm");
+			ws = new HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient();
 			//Esto es con .NET 2.0
 			//ws.CookieContainer = new System.Net.CookieContainer();
 		}
@@ -81,32 +82,13 @@ namespace HolaMundo
 			this.cmdSaludar.Name = "cmdSaludar";
 			this.cmdSaludar.TabIndex = 1;
 			this.cmdSaludar.Text = "Saludar";
-			this.cmdSaludar.Click += new System.EventHandler(this.cmdSaludar_Click);
-			// 
-			// lblNombre
-			// 
-			this.lblNombre.Location = new System.Drawing.Point(32, 48);
-			this.lblNombre.Name = "lblNombre";
-			this.lblNombre.Size = new System.Drawing.Size(100, 16);
-			this.lblNombre.TabIndex = 2;
-			this.lblNombre.Text = "Nombre:";
-			// 
-			// cmdUltimoSaludo
-			// 
-			this.cmdUltimoSaludo.Location = new System.Drawing.Point(152, 104);
-			this.cmdUltimoSaludo.Name = "cmdUltimoSaludo";
-			this.cmdUltimoSaludo.Size = new System.Drawing.Size(88, 23);
-			this.cmdUltimoSaludo.TabIndex = 3;
-			this.cmdUltimoSaludo.Text = "Último Saludo";
-			this.cmdUltimoSaludo.Click += new System.EventHandler(this.cmdUltimoSaludo_Click);
+			this.cmdSaludar.Click += new System.EventHandler(this.cmdUltimoSaludo_Click);
 			// 
 			// frmHolaMundo
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(292, 150);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.cmdUltimoSaludo,
-																		  this.lblNombre,
 																		  this.cmdSaludar,
 																		  this.txtNombre});
 			this.Name = "frmHolaMundo";
@@ -125,15 +107,9 @@ namespace HolaMundo
 			Application.Run(new frmHolaMundo());
 		}
 
-		private void cmdSaludar_Click(object sender, System.EventArgs e)
-		{
-			String Mensaje = ws.salude(txtNombre.Text);
-			MessageBox.Show(Mensaje);
-		}
-
 		private void cmdUltimoSaludo_Click(object sender, System.EventArgs e)
 		{
-			String Mensaje = ws.ultimoSaludo();
+			String Mensaje = ws.doMove(4);
 			MessageBox.Show(Mensaje);
 		}
 

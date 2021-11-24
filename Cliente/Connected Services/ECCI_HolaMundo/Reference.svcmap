@@ -18,10 +18,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://titanic.ecci.ucr.ac.cr:80/~bsolano/HolaMundoServiceRPCEncoded/?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/TicTacToe-RPC-Encoded/?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ECCI_HolaMundo.wsdl" MetadataType="Wsdl" ID="4e0526e1-86bd-4962-a418-0c76c586d271" SourceId="1" SourceUrl="http://titanic.ecci.ucr.ac.cr/~bsolano/HolaMundoServiceRPCEncoded/?wsdl" />
+    <MetadataFile FileName="ECCI_TicTacToe.wsdl" MetadataType="Wsdl" ID="3a253b8e-3926-4b95-acee-cc8dc4d111fa" SourceId="1" SourceUrl="http://localhost/TicTacToe-RPC-Encoded/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
