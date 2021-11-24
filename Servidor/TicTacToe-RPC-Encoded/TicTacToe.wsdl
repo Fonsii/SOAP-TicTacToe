@@ -13,7 +13,15 @@
 
 	<!-- Tipos complejos -->
 
-	<types>
+	<xsd:complexType name="ArrayOfInts">
+		<xsd:complexContent>
+			<xsd:restriction base="soapenc:Array">
+				<xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+			</xsd:restriction>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<types>		
 		<xsd:schema targetNamespace="urn:ECCI_TicTacToe"/>
 	</types>
 
@@ -28,7 +36,7 @@
 	</message>
 	
 	<message name="stringIn">
-		<part name="move" type="xsd:string"/>
+		<part name="move" type="tns:ArrayOfInts"/>
 	</message>
 
 	<message name="stringOut">

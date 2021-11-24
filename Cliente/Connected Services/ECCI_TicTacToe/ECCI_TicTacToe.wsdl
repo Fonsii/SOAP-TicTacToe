@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ECCI_TicTacToe" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="ECCI_TicTacToe" targetNamespace="urn:ECCI_TicTacToe" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <xsd:complexType name="ArrayOfInts">
+    <xsd:complexContent>
+      <xsd:restriction base="soapenc:Array">
+        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]" />
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
   <wsdl:types>
     <xsd:schema targetNamespace="urn:ECCI_TicTacToe" />
   </wsdl:types>
@@ -10,7 +17,7 @@
     <wsdl:part name="return" type="xsd:string" />
   </wsdl:message>
   <wsdl:message name="stringIn">
-    <wsdl:part name="move" type="xsd:string" />
+    <wsdl:part name="move" type="tns:ArrayOfInts" />
   </wsdl:message>
   <wsdl:message name="stringOut">
     <wsdl:part name="return" type="xsd:string" />

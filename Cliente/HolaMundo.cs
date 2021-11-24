@@ -113,7 +113,9 @@ namespace HolaMundo
 			// MessageBox.Show(Mensaje);
 			Console.WriteLine(Mensaje);
 
-			String msg = ws.newFunction("Hey");
+			int[] numbers = { 3, 14, 59 };
+
+			String msg = ws.newFunction(numbers);
 			Console.WriteLine(msg);
 
 
