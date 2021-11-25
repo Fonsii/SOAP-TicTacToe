@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ECCI_TicTacToe" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="ECCI_TicTacToe" targetNamespace="urn:ECCI_TicTacToe" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ECCI_TicTacToe" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="ECCI_TicTacToe" targetNamespace="urn:ECCI_TicTacToe" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <xsd:complexType name="ArrayOfInts">
+    <xsd:complexType name="ArrayOfInt">
       <xsd:complexContent>
         <xsd:restriction base="soapenc:Array">
-          <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]" />
+          <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]" />
         </xsd:restriction>
       </xsd:complexContent>
     </xsd:complexType>
     <xsd:schema targetNamespace="urn:ECCI_TicTacToe" />
   </wsdl:types>
+  <wsdl:message name="arrayIntsIn">
+    <wsdl:part name="array" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="arrayIntsOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
   <wsdl:message name="moveIn">
     <wsdl:part name="move" type="xsd:int" />
   </wsdl:message>
   <wsdl:message name="moveOut">
-    <wsdl:part name="return" type="xsd:string" />
-  </wsdl:message>
-  <wsdl:message name="stringIn">
-    <wsdl:part name="move" type="wsdl:ArrayOfInts" />
-  </wsdl:message>
-  <wsdl:message name="stringOut">
     <wsdl:part name="return" type="xsd:string" />
   </wsdl:message>
   <wsdl:portType name="ECCI_TicTacToePort">
@@ -31,8 +31,8 @@
     <wsdl:operation name="newFunction">
       <documentation>
       </documentation>
-      <wsdl:input message="tns:stringIn" />
-      <wsdl:output message="tns:stringOut" />
+      <wsdl:input message="tns:arrayIntsIn" />
+      <wsdl:output message="tns:arrayIntsOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ECCI_TicTacToeBinding" type="tns:ECCI_TicTacToePort">

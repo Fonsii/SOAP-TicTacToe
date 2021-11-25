@@ -22,7 +22,7 @@ namespace HolaMundo
 		private System.ComponentModel.Container components = null;
 
 		// private HolaMundo.ECCI_HolaMundo.ECCI_HolaMundo ws; // .NET 2.0
-		private HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient ws;
+		private TicTacToeProxy proxy;
 
 		public frmHolaMundo()
 		{
@@ -34,8 +34,7 @@ namespace HolaMundo
 			//
 			// TODO: Agregar código de constructor después de llamar a InitializeComponent
 			//
-			
-			ws = new HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient();
+			proxy = new TicTacToeProxy();
 			//Esto es con .NET 2.0
 			//ws.CookieContainer = new System.Net.CookieContainer();
 		}
@@ -109,16 +108,8 @@ namespace HolaMundo
 
 		private void cmdUltimoSaludo_Click(object sender, System.EventArgs e)
 		{
-			String Mensaje = ws.doMove(4);
-			// MessageBox.Show(Mensaje);
+			String Mensaje = proxy.DoMove(4);
 			Console.WriteLine(Mensaje);
-
-			int[] numbers = { 3, 14, 59 };
-
-			String msg = ws.newFunction(numbers);
-			Console.WriteLine(msg);
-
-
 		}
 
 	}

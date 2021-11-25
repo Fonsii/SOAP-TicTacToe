@@ -4,8 +4,8 @@
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
-    <ImportXmlTypes>false</ImportXmlTypes>
-    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <ImportXmlTypes>true</ImportXmlTypes>
+    <GenerateInternalTypes>true</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
     <CollectionMappings />

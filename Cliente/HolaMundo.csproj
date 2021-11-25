@@ -118,6 +118,7 @@
     <Compile Include="HolaMundo.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TicTacToeProxy.cs" />
     <Content Include="App.ico" />
     <None Include="Connected Services\ECCI_HolaMundo\ECCI_TicTacToe.wsdl" />
     <None Include="Connected Services\ECCI_TicTacToe\Reference.svcmap">

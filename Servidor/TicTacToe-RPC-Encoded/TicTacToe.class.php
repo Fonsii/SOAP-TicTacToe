@@ -91,8 +91,8 @@ class TicTacToe {
         }
     }
 
-    public function newFunction($move) {
-        return $move . " sd";
+    public function newFunction($arrayOfInts) {
+        return $arrayOfInts;
     }
 
     /**
