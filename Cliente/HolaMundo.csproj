@@ -137,7 +137,6 @@
       <DependentUpon>HolaMundo.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Connected Services\ECCI_HolaMundo\ECCI_HolaMundo.wsdl" />
     <None Include="Connected Services\ECCI_TicTacToe\ECCI_TicTacToe.wsdl" />
   </ItemGroup>
   <ItemGroup>
