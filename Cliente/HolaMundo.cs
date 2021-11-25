@@ -8,7 +8,7 @@ using System.Data;
 namespace HolaMundo
 {
 	/// <summary>
-	/// Descripción breve de Form1.
+	/// DescripciÃ³n breve de Form1.
 	/// </summary>
 	public class frmHolaMundo : System.Windows.Forms.Form
 	{
@@ -18,27 +18,29 @@ namespace HolaMundo
 
 		private System.Windows.Forms.FlowLayoutPanel buttonsPanel;
 		/// <summary>
-		/// Variable del diseñador requerida.
+		/// Variable del diseÃ±ador requerida.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
         private FlowLayoutPanel flowLayoutPanel1;
 
-        // private HolaMundo.ECCI_HolaMundo.ECCI_HolaMundo ws; // .NET 2.0
-        private HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient ws;
+		// private HolaMundo.ECCI_HolaMundo.ECCI_HolaMundo ws; // .NET 2.0
+		private TicTacToeProxy proxy;
 
 		public frmHolaMundo()
 		{
 			//
-			// Necesario para admitir el Diseñador de Windows Forms
+			// Necesario para admitir el DiseÃ±ador de Windows Forms
 			//
 			InitializeComponent();
 
-			// TODO: Agregar código de constructor después de llamar a InitializeComponent
-			ws = new HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient();
+			// TODO: Agregar cÃ³digo de constructor despuÃ©s de llamar a InitializeComponent
+			proxy = new TicTacToeProxy();
+			//Esto es con .NET 2.0
+			//ws.CookieContainer = new System.Net.CookieContainer();
 		}
 
 		/// <summary>
-		/// Limpiar los recursos que se estén utilizando.
+		/// Limpiar los recursos que se estÃ©n utilizando.
 		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
@@ -54,8 +56,8 @@ namespace HolaMundo
 
 		#region Windows Form Designer generated code
 		/// <summary>
-		/// Método necesario para admitir el Diseñador, no se puede modificar
-		/// el contenido del método con el editor de código.
+		/// MÃ©todo necesario para admitir el DiseÃ±ador, no se puede modificar
+		/// el contenido del mÃ©todo con el editor de cÃ³digo.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -95,7 +97,7 @@ namespace HolaMundo
 		#endregion
 
 		/// <summary>
-		/// Punto de entrada principal de la aplicación.
+		/// Punto de entrada principal de la aplicaciÃ³n.
 		/// </summary>
 		[STAThread]
 		static void Main() 
@@ -112,7 +114,7 @@ namespace HolaMundo
 				System.Windows.Forms.Button button = new System.Windows.Forms.Button();
 				button.Name = "button" + i;
 				button.Size = new System.Drawing.Size(150, 100);
-				button.Text = "Jugar aquí";
+				button.Text = "Jugar aquÃ­";
 				button.Click += new System.EventHandler(this.Button_Click);
 				flowLayoutPanel1.Controls.Add(button);
             }
@@ -120,12 +122,14 @@ namespace HolaMundo
 
 		private void cmdUltimoSaludo_Click(object sender, System.EventArgs e)
 		{
+			String Mensaje = proxy.DoMove(4);
+			Console.WriteLine(Mensaje);
 			MessageBox.Show("Funcionalidad en progreso");
 		}
 
 		/// <summary>
 		/// Trigger de los botones del grid del juego.
-		/// <param name="sender"> El que llamó el trigger. </param>
+		/// <param name="sender"> El que llamÃ³ el trigger. </param>
 		/// <param name="e"> Argumentos que envia el sender. </param>
 		/// </summary>
 		private void Button_Click(object sender, EventArgs e)

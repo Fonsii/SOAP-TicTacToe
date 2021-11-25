@@ -95,9 +95,12 @@ class TicTacToe {
         }
     }
 
+    public function newFunction($arrayOfInts) {
+        return $arrayOfInts;
+    }
+
     /**
 	 * TicTacToe::computerMove() Realiza el movimiento de la computadora.
-	 * 
 	 * @return string
 	 **/
     private function computerMove() {

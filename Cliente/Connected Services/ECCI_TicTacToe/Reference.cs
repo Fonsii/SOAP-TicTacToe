@@ -13,21 +13,26 @@ namespace HolaMundo.ECCI_TicTacToe {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="urn:ECCI_TicTacToe", ConfigurationName="ECCI_TicTacToe.ECCI_TicTacToePort")]
-    public interface ECCI_TicTacToePort {
+    internal interface ECCI_TicTacToePort {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#doMove", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         string doMove(int move);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#newFunction", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        string newFunction(string array);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ECCI_TicTacToePortChannel : HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePort, System.ServiceModel.IClientChannel {
+    internal interface ECCI_TicTacToePortChannel : HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePort, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ECCI_TicTacToePortClient : System.ServiceModel.ClientBase<HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePort>, HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePort {
+    internal partial class ECCI_TicTacToePortClient : System.ServiceModel.ClientBase<HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePort>, HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePort {
         
         public ECCI_TicTacToePortClient() {
         }
@@ -50,6 +55,10 @@ namespace HolaMundo.ECCI_TicTacToe {
         
         public string doMove(int move) {
             return base.Channel.doMove(move);
+        }
+        
+        public string newFunction(string array) {
+            return base.Channel.newFunction(array);
         }
     }
 }
