@@ -9,8 +9,14 @@
   <wsdl:message name="moveOut">
     <wsdl:part name="return" type="xsd:int" />
   </wsdl:message>
+  <wsdl:message name="leaderboardCheckIn">
+    <wsdl:part name="name" type="xsd:string" />
+  </wsdl:message>
   <wsdl:message name="intOut">
     <wsdl:part name="return" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="stringOut">
+    <wsdl:part name="return" type="xsd:string" />
   </wsdl:message>
   <wsdl:message name="begin" />
   <wsdl:message name="output" />
@@ -30,6 +36,18 @@
       <documentation>
       </documentation>
       <wsdl:input message="tns:begin" />
+      <wsdl:output message="tns:intOut" />
+    </wsdl:operation>
+    <wsdl:operation name="topPlays">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:begin" />
+      <wsdl:output message="tns:stringOut" />
+    </wsdl:operation>
+    <wsdl:operation name="leaderboardCheck">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:leaderboardCheckIn" />
       <wsdl:output message="tns:intOut" />
     </wsdl:operation>
   </wsdl:portType>
@@ -55,6 +73,24 @@
     </wsdl:operation>
     <wsdl:operation name="getBoardStatus">
       <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#getBoardStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="topPlays">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#topPlays" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leaderboardCheck">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#leaderboardCheck" />
       <wsdl:input>
         <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>

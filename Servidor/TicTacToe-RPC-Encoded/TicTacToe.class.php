@@ -50,6 +50,7 @@
 class TicTacToe {
     private $board = array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
     private $corners = array(1, 3, 7, 9);
+    private $leaderboard = array();
 
     private $PLAYER_ID = 0;
     private $PC_ID = 1;
@@ -86,6 +87,78 @@ class TicTacToe {
         for ($index = 1; $index < count($this->board); $index++){
             $this->board[$index] = -1;
         }
+    }
+
+    public function topPlays(){
+        return "Top 10 plays";
+    }
+
+    private function saveLeaderboard(){
+        $leaderboard = fopen('leaderboard.txt', 'w');
+
+        foreach ($this->leaderboard as &$entry) {
+            fwrite($leaderboard, $entry->serialize()."\n");
+        }
+        fclose($leaderboard);
+    }
+
+    public function leaderboardCheck($name){
+        $leaderboard = fopen('leaderboard.txt', 'r');
+        while($entry = fgets($leaderboard))
+		{
+			$record = explode(':', $entry);
+			$this->leaderboard[] = new entryLeaderboard($record[0], $record[1]);
+		}
+		fclose($leaderboard);
+
+        $new_leaderboard = array();
+        $number = 0;
+        if (count($this->leaderboard) < 10) // Time in leaderboard because not enough entries.
+        {
+            
+            if(count($this->leaderboard) == 0)
+            {
+                $number = 6;
+                $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+            }
+            else
+            {
+                $saved = 0;
+
+                foreach ($this->leaderboard as &$entry) {
+                    if ($saved == 0 && $entry->getTime() > time() - $this->start_time) {
+                        $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+                        $saved = 1;
+                    }
+                    $new_leaderboard[] = $entry;
+                }
+
+                if($saved == 0)
+                {
+                    $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+                }
+                $number = 8;
+            }
+
+        }
+        else // Check if the time can hit in the leaderboard.
+        {
+            foreach ($this->leaderboard as &$entry) {
+                if (count($new_leaderboard) == 10)
+                {
+                    break;
+                }
+                if ($entry->time > $this->start_time - time()) 
+                {
+                    $new_leaderboard[] = new entryLeaderboard($name, $this->start_time - time());
+                }
+                $new_leaderboard[] = $entry;
+            }
+        }
+
+        $this->leaderboard = $new_leaderboard;
+        $this->saveLeaderboard();
+        return $number;
     }
 
     /**
@@ -186,6 +259,24 @@ class TicTacToe {
         }
         return $freeCells;
     }
+}
+
+class entryLeaderboard {
+    private $name;
+    private $time;
+
+    public function __construct($name, $time) {
+        $this->name = $name;
+        $this->time = $time;
+    }
+
+    public function serialize() {
+        return $this->name.":".$this->time;
+    }
+
+    public function getTime() {
+        return $this->time;
+    }	
 }
 
 ?>

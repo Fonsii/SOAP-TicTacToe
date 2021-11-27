@@ -28,6 +28,16 @@ namespace HolaMundo.ECCI_TicTacToe {
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         int getBoardStatus();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#topPlays", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        string topPlays();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#leaderboardCheck", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        int leaderboardCheck(string name);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,6 +77,14 @@ namespace HolaMundo.ECCI_TicTacToe {
         
         public int getBoardStatus() {
             return base.Channel.getBoardStatus();
+        }
+        
+        public string topPlays() {
+            return base.Channel.topPlays();
+        }
+        
+        public int leaderboardCheck(string name) {
+            return base.Channel.leaderboardCheck(name);
         }
     }
 }

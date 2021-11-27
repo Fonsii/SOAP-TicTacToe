@@ -30,5 +30,16 @@ namespace HolaMundo
         {
             return webService.getBoardStatus();
         }
+
+
+        public String TopPlays()
+        {
+            return webService.topPlays();
+        }
+
+        public int LeaderboardCheck(String name)
+        {
+            return webService.leaderboardCheck(name);
+        }
     }
 }

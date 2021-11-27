@@ -25,9 +25,17 @@
 	<message name="moveOut">
 		<part name="return" type="xsd:int"/>
 	</message>
+
+	<message name="leaderboardCheckIn">
+		<part name="name" type="xsd:string"/>
+	</message>
 	
 	<message name="intOut">
 		<part name="return" type="xsd:int"/>
+	</message>
+
+	<message name="stringOut">
+		<part name="return" type="xsd:string"/>
 	</message>
 	
 	<message name="begin"/>
@@ -49,6 +57,16 @@
 		<operation name="getBoardStatus">
 			<documentation></documentation>
 			<input message="tns:begin"/>
+			<output message="tns:intOut"/>
+		</operation>
+		<operation name="topPlays">
+			<documentation></documentation>
+			<input message="tns:begin"/>
+			<output message="tns:stringOut"/>
+		</operation>
+		<operation name="leaderboardCheck">
+			<documentation></documentation>
+			<input message="tns:leaderboardCheckIn"/>
 			<output message="tns:intOut"/>
 		</operation>
 	</portType>
@@ -85,6 +103,32 @@
 		</operation>
 		<operation name="getBoardStatus">
 			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#getBoardStatus"/>
+			<input>
+				<soap:body use="encoded"
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
+			</input>
+			<output>
+				<soap:body use="encoded"
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
+			</output>
+		</operation>
+		<operation name="topPlays">
+			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#topPlays"/>
+			<input>
+				<soap:body use="encoded"
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
+			</input>
+			<output>
+				<soap:body use="encoded"
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
+			</output>
+		</operation>
+		<operation name="leaderboardCheck">
+			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#leaderboardCheck"/>
 			<input>
 				<soap:body use="encoded"
 				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"

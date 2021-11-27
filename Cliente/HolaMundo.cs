@@ -183,6 +183,7 @@ namespace HolaMundo
 			{
 				case 1000:
 					MessageBox.Show("Felicidades, usted ha ganado!");
+					LeaderboardCheck();
 					ResetBoard();
 					break;
 
@@ -212,6 +213,18 @@ namespace HolaMundo
 		private void LeaderboardShow(object sender, System.EventArgs e)
 		{
 			MessageBox.Show("Funcionalidad en progreso Top 10");
+		}
+
+		private void LeaderboardCheck() 
+		{
+			String name = "Jugador";
+
+			if (this.userName.Text.Length > 0) 
+			{
+				name = this.userName.Text;
+			}
+
+			MessageBox.Show(proxy.LeaderboardCheck(name).ToString());
 		}
 
 		/// <summary>
