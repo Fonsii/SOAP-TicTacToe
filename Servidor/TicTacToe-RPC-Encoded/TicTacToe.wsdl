@@ -13,33 +13,25 @@
 
 	<!-- Tipos complejos -->	
 	<types>
-		<xsd:complexType name="ArrayOfInt">
-			<xsd:complexContent>
-				<xsd:restriction base="soapenc:Array">
-					<xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
-				</xsd:restriction>
-			</xsd:complexContent>
-		</xsd:complexType>
 		<xsd:schema targetNamespace="urn:ECCI_TicTacToe"/>
 	</types>
 
 	<!-- Mensajes para comunicarse con la clase TicTacToe. -->
-	
-	<message name="arrayIntsIn">
-		<part name="array" type="xsd:int[]"/>
-	</message>
-
-	<message name="arrayIntsOut">
-		<part name="return" type="xsd:int[]"/>
-	</message>
 
 	<message name="moveIn">
-		<part name="move" type="xsd:int"/>
+		<part name="moveIndex" type="xsd:int"/>
 	</message>
 
 	<message name="moveOut">
-		<part name="return" type="xsd:string"/>
+		<part name="return" type="xsd:int"/>
 	</message>
+	
+	<message name="intOut">
+		<part name="return" type="xsd:int"/>
+	</message>
+	
+	<message name="begin"/>
+	<message name="output"/>
 
 	<!-- Puerto para comunicar con la clase TicTacToe, "ECCI_TicTacToePort" -->
 
@@ -49,10 +41,15 @@
 			<input message="tns:moveIn"/>
 			<output message="tns:moveOut"/>
 		</operation>
-		<operation name="newFunction">
+		<operation name="resetBoard">
 			<documentation></documentation>
-			<input message="tns:arrayIntsIn"/>
-			<output message="tns:arrayIntsOut"/>
+			<input message="tns:begin"/>
+			<output message="tns:output"/>
+		</operation>
+		<operation name="getBoardStatus">
+			<documentation></documentation>
+			<input message="tns:begin"/>
+			<output message="tns:intOut"/>
 		</operation>
 	</portType>
 
@@ -73,17 +70,30 @@
 						   namespace="urn:ECCI_TicTacToe"/>
 			</output>
 		</operation>
-		<operation name="newFunction">
-			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#newFunction"/>
+		<operation name="resetBoard">
+			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#resetBoard"/>
 			<input>
 				<soap:body use="encoded"
-							encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-							namespace="urn:ECCI_TicTacToe"/>
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
 			</input>
 			<output>
 				<soap:body use="encoded"
-							encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-							namespace="urn:ECCI_TicTacToe"/>
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
+			</output>
+		</operation>
+		<operation name="getBoardStatus">
+			<soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#getBoardStatus"/>
+			<input>
+				<soap:body use="encoded"
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
+			</input>
+			<output>
+				<soap:body use="encoded"
+				           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+						   namespace="urn:ECCI_TicTacToe"/>
 			</output>
 		</operation>
 	</binding>

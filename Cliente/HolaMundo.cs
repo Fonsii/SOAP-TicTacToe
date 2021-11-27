@@ -4,19 +4,17 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using System.Linq;
 
 namespace HolaMundo
 {
 	/// <summary>
 	/// Descripción breve de Form1.
 	/// </summary>
-	public class frmHolaMundo : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.Button cmdSaludar;
-		private System.Windows.Forms.Button cmdUltimoSaludo;
+	public class FrmHolaMundo : Form
+    {
+		private System.Windows.Forms.Button cmdSaludar;		
 		private System.Windows.Forms.Label lblNombre;
-
-		private System.Windows.Forms.FlowLayoutPanel buttonsPanel;
 		/// <summary>
 		/// Variable del diseñador requerida.
 		/// </summary>
@@ -26,17 +24,13 @@ namespace HolaMundo
 		// private HolaMundo.ECCI_HolaMundo.ECCI_HolaMundo ws; // .NET 2.0
 		private TicTacToeProxy proxy;
 
-		public frmHolaMundo()
-		{
-			//
-			// Necesario para admitir el Diseñador de Windows Forms
-			//
-			InitializeComponent();
+		private BoardButton[] board;
 
-			// TODO: Agregar código de constructor después de llamar a InitializeComponent
+		public FrmHolaMundo()
+		{
 			proxy = new TicTacToeProxy();
-			//Esto es con .NET 2.0
-			//ws.CookieContainer = new System.Net.CookieContainer();
+			board = new BoardButton[10];
+			InitializeComponent();			
 		}
 
 		/// <summary>
@@ -66,22 +60,13 @@ namespace HolaMundo
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // cmdSaludar
-            // 
-            this.cmdSaludar.Location = new System.Drawing.Point(33, 403);
-            this.cmdSaludar.Name = "cmdSaludar";
-            this.cmdSaludar.Size = new System.Drawing.Size(114, 32);
-            this.cmdSaludar.TabIndex = 1;
-            this.cmdSaludar.Text = "Saludar";
-            this.cmdSaludar.Click += new System.EventHandler(this.cmdUltimoSaludo_Click);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Location = new System.Drawing.Point(33, 22);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(619, 362);
             this.flowLayoutPanel1.TabIndex = 2;
-			this.buttonArrayCreator();
+			this.ButtonArrayCreator();
             // 
             // frmHolaMundo
             // 
@@ -102,30 +87,72 @@ namespace HolaMundo
 		[STAThread]
 		static void Main() 
 		{
-			Application.Run(new frmHolaMundo());
+			Application.Run(new FrmHolaMundo());
 		}
 
 		/// <summary>
 		/// Crea los botones para las 9 posiciones del Tic-Tac-Toe.
 		/// </summary>
-		public void buttonArrayCreator() 
+		public void ButtonArrayCreator() 
         {
-            for (int i = 0; i < 9; ++i) {
-				System.Windows.Forms.Button button = new System.Windows.Forms.Button();
-				button.Name = "button" + i;
-				button.Size = new System.Drawing.Size(150, 100);
-				button.Text = "Jugar aquí";
-				button.Click += new System.EventHandler(this.Button_Click);
-				flowLayoutPanel1.Controls.Add(button);
-            }
+			for (int index = 1; index < board.Length; index++)
+            {
+				BoardButton bbutton = new BoardButton(index, "Jugar aquí");
+				bbutton.Click += new EventHandler(Button_Click);
+				flowLayoutPanel1.Controls.Add(bbutton);
+				board[index] = bbutton;
+			}
         }
 
-		private void cmdUltimoSaludo_Click(object sender, System.EventArgs e)
-		{
-			String Mensaje = proxy.DoMove(4);
-			Console.WriteLine(Mensaje);
-			MessageBox.Show("Funcionalidad en progreso");
+		private void ResetBoard()
+        {
+			for (int index = 1; index < board.Length; index++)
+			{
+				BoardButton button = board[index];
+				button.Text = "Jugar Aquí";
+				button.Enabled = true;
+			}
+			proxy.ResetBoard();
 		}
+
+		private void HandleDraw()
+        {
+			MessageBox.Show("Es un empate!");
+			ResetBoard();
+		}
+
+		private void HandleComputerMove(int moveIndex)
+        {
+			Console.WriteLine("Computadora juega: " + moveIndex);
+			switch (moveIndex)
+            {
+				case 1000:
+					MessageBox.Show("Felicidades, usted ha ganado!");
+					ResetBoard();
+					break;
+
+				case 0:
+					HandleDraw();
+					break;
+
+				default:					
+					BoardButton button = board[moveIndex];
+					button.Text = "Computadora";
+					button.Enabled = false;
+					break;
+			}
+
+			switch (proxy.GetBoardStatus())
+            {
+				case -1000:
+					MessageBox.Show("La computadora ha ganado!");
+					ResetBoard();
+					break;
+				case 0:
+					HandleDraw();
+					break;
+			}
+        }
 
 		/// <summary>
 		/// Trigger de los botones del grid del juego.
@@ -134,23 +161,13 @@ namespace HolaMundo
 		/// </summary>
 		private void Button_Click(object sender, EventArgs e)
         {
-			var button = (Button)sender;
-			int position = 0;
-			Int32.TryParse(button.Name.Replace("button", ""), out position);
-			String Mensaje = ws.doMove(position);
-			button.Enabled = false;
+			BoardButton button = (BoardButton) sender;
 			button.Text = "Jugador";
-			MessageBox.Show(Mensaje);
-			DoComputerMove();
-		}
+			button.Enabled = false;
 
-		/// <summary>
-		/// Hacer el movimiento de la computadora.
-		/// </summary>
-		private void DoComputerMove() 
-		{
-			String Mensaje = ws.doMove(0);
-			MessageBox.Show("jhbbjh");
+			// TODO: remove print.
+			Console.WriteLine("Jugador juega: " + button.GetIndex().ToString());
+			HandleComputerMove(proxy.DoMove(button.GetIndex()));
 		}
     }
 }

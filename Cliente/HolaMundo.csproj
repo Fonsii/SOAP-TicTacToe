@@ -105,6 +105,9 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BoardButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Connected Services\ECCI_HolaMundo\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

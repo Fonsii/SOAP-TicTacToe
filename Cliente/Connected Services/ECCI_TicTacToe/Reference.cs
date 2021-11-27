@@ -18,12 +18,16 @@ namespace HolaMundo.ECCI_TicTacToe {
         [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#doMove", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        string doMove(int move);
+        int doMove(int moveIndex);
         
-        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#newFunction", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#resetBoard", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        void resetBoard();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:ECCI_TicTacToe#TicTacToe#getBoardStatus", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        string newFunction(string array);
+        int getBoardStatus();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -53,12 +57,16 @@ namespace HolaMundo.ECCI_TicTacToe {
                 base(binding, remoteAddress) {
         }
         
-        public string doMove(int move) {
-            return base.Channel.doMove(move);
+        public int doMove(int moveIndex) {
+            return base.Channel.doMove(moveIndex);
         }
         
-        public string newFunction(string array) {
-            return base.Channel.newFunction(array);
+        public void resetBoard() {
+            base.Channel.resetBoard();
+        }
+        
+        public int getBoardStatus() {
+            return base.Channel.getBoardStatus();
         }
     }
 }

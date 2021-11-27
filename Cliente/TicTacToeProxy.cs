@@ -7,13 +7,28 @@ namespace HolaMundo
 {
     class TicTacToeProxy
     {
-        private ECCI_TicTacToe.ECCI_TicTacToePortClient webService;
+        private readonly ECCI_TicTacToe.ECCI_TicTacToePortClient webService;
         public TicTacToeProxy() {
-            webService = new HolaMundo.ECCI_TicTacToe.ECCI_TicTacToePortClient();
+            webService = new ECCI_TicTacToe.ECCI_TicTacToePortClient();
         }
 
-        public string DoMove(int move) {
-            return webService.doMove(move);
+        /*
+         * 
+         */
+        public int DoMove(int moveIndex) {
+            // Jugador 0, Computadora 1.
+            int computerMove = webService.doMove(moveIndex);
+            return computerMove;
+        }
+        
+        public void ResetBoard()
+        {
+            webService.resetBoard();
+        }
+
+        public int GetBoardStatus()
+        {
+            return webService.getBoardStatus();
         }
     }
 }
