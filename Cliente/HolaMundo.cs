@@ -145,6 +145,7 @@ namespace HolaMundo
 		}
 
 
+		
 		/// <summary>
 		/// Crea los botones para las 9 posiciones del Tic-Tac-Toe.
 		/// </summary>
@@ -210,9 +211,11 @@ namespace HolaMundo
 			}
 		}
 
+
 		private void LeaderboardShow(object sender, System.EventArgs e)
 		{
-			MessageBox.Show("Funcionalidad en progreso Top 10");
+
+			MessageBox.Show(proxy.TopPlays());
 		}
 
 		private void LeaderboardCheck() 
@@ -250,7 +253,7 @@ namespace HolaMundo
 		/// </summary>
 		private void RestartGame(object sender, System.EventArgs e)
 		{
-			MessageBox.Show("Funcionalidad en progreso");
+			this.ResetBoard();
 		}
 	}
 }

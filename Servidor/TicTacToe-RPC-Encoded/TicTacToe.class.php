@@ -1,56 +1,10 @@
 <?php
-  
-/**
- * 
- * Copyright (c) 2005-2015, Braulio Jos� Solano Rojas
- * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without modification, are
- * permitted provided that the following conditions are met:
- * 
- * 	Redistributions of source code must retain the above copyright notice, this list of
- * 	conditions and the following disclaimer. 
- * 	Redistributions in binary form must reproduce the above copyright notice, this list of
- * 	conditions and the following disclaimer in the documentation and/or other materials
- * 	provided with the distribution. 
- * 	Neither the name of the Solsoft de Costa Rica S.A. nor the names of its contributors may
- * 	be used to endorse or promote products derived from this software without specific
- * 	prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
- * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
- *
- * @version $Id$
- * @copyright 2005-2015
- */
-
-
-/**
- * HolaMundo Clase que implementa el t�pico primer ejemplo de programaci�n en todo lenguaje.
- * 
- * @package SoapDiscovery
- * @author Braulio Jos� Solano Rojas
- * @copyright Copyright (c) 2005-2015 Braulio Jos� Solano Rojas
- * @version $Id$
- * @access public
- **/
 
 class TicTacToe {
     private $board = array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
     private $corners = array(1, 3, 7, 9);
     private $leaderboard = array();
+    private $start_time = 0;
 
     private $PLAYER_ID = 0;
     private $PC_ID = 1;
@@ -64,7 +18,9 @@ class TicTacToe {
 	 * 
 	 * @param int $nextMove
 	 **/
-	public function __construct(){}
+	public function __construct(){
+        $this->start_time = time();
+    }
 
     /**
      * TicTacToe::isWinner() Determina si el jugador ha ganado la partida.
@@ -87,29 +43,47 @@ class TicTacToe {
         for ($index = 1; $index < count($this->board); $index++){
             $this->board[$index] = -1;
         }
+        $this->start_time = time();
     }
 
     public function topPlays(){
-        return "Top 10 plays";
+        $string_to_return = "Top 10 jugadas \n";
+        $leaderboard_txt = fopen('leaderboard.txt', 'r');
+
+        while($entry = fgets($leaderboard_txt))
+		{
+            $string_to_return .= $entry;
+		}
+
+        fclose($leaderboard_txt);
+
+        return $string_to_return;
     }
 
     private function saveLeaderboard(){
-        $leaderboard = fopen('leaderboard.txt', 'w');
+        $leaderboard_txt = fopen('leaderboard.txt', 'w');
 
         foreach ($this->leaderboard as &$entry) {
-            fwrite($leaderboard, $entry->serialize()."\n");
+            fwrite($leaderboard_txt, $entry->serialize()."\n");
         }
-        fclose($leaderboard);
+        fclose($leaderboard_txt);
     }
 
     public function leaderboardCheck($name){
-        $leaderboard = fopen('leaderboard.txt', 'r');
-        while($entry = fgets($leaderboard))
+        $leaderboard_txt = fopen('leaderboard.txt', 'r');
+        $this->leaderboard = array();
+
+        while($entry = fgets($leaderboard_txt))
 		{
 			$record = explode(':', $entry);
-			$this->leaderboard[] = new entryLeaderboard($record[0], $record[1]);
+            $name_user = str_replace("\n","",$record[0]);
+            $time = str_replace("\n","",$record[1]);
+            if($time != "" && $name_user != ""){
+                $this->leaderboard[] = new entryLeaderboard($name_user, $time);
+            }
 		}
-		fclose($leaderboard);
+
+		fclose($leaderboard_txt);
 
         $new_leaderboard = array();
         $number = 0;
@@ -123,17 +97,17 @@ class TicTacToe {
             }
             else
             {
-                $saved = 0;
+                $insert_value = 0;
 
                 foreach ($this->leaderboard as &$entry) {
-                    if ($saved == 0 && $entry->getTime() > time() - $this->start_time) {
+                    if ($insert_value == 0 && $entry->getTime() > time() - $this->start_time) {
                         $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
-                        $saved = 1;
+                        $insert_value = 1;
                     }
                     $new_leaderboard[] = $entry;
                 }
 
-                if($saved == 0)
+                if($insert_value == 0)
                 {
                     $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
                 }
@@ -143,14 +117,17 @@ class TicTacToe {
         }
         else // Check if the time can hit in the leaderboard.
         {
+            $insert_value = 0;
+
             foreach ($this->leaderboard as &$entry) {
+                if ($insert_value == 0 && intval($entry->getTime()) > time() - $this->start_time) 
+                {
+                    $insert_value = 1;
+                    $new_leaderboard[] = new entryLeaderboard($name, time() -$this->start_time);
+                }
                 if (count($new_leaderboard) == 10)
                 {
                     break;
-                }
-                if ($entry->time > $this->start_time - time()) 
-                {
-                    $new_leaderboard[] = new entryLeaderboard($name, $this->start_time - time());
                 }
                 $new_leaderboard[] = $entry;
             }
@@ -271,7 +248,7 @@ class entryLeaderboard {
     }
 
     public function serialize() {
-        return $this->name.":".$this->time;
+        return $this->name.":".strval($this->time);
     }
 
     public function getTime() {
