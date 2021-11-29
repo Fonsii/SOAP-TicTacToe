@@ -86,18 +86,17 @@ class TicTacToe {
 		fclose($leaderboard_txt);
 
         $new_leaderboard = array();
-        $number = 0;
+        $insert_value = 0;
         if (count($this->leaderboard) < 10) // Time in leaderboard because not enough entries.
         {
             
             if(count($this->leaderboard) == 0)
             {
-                $number = 6;
                 $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+                $insert_value = 1;
             }
             else
             {
-                $insert_value = 0;
 
                 foreach ($this->leaderboard as &$entry) {
                     if ($insert_value == 0 && $entry->getTime() > time() - $this->start_time) {
@@ -109,15 +108,14 @@ class TicTacToe {
 
                 if($insert_value == 0)
                 {
+                    $insert_value = 1;
                     $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
                 }
-                $number = 8;
             }
 
         }
         else // Check if the time can hit in the leaderboard.
         {
-            $insert_value = 0;
 
             foreach ($this->leaderboard as &$entry) {
                 if ($insert_value == 0 && intval($entry->getTime()) > time() - $this->start_time) 
@@ -135,7 +133,7 @@ class TicTacToe {
 
         $this->leaderboard = $new_leaderboard;
         $this->saveLeaderboard();
-        return $number;
+        return $insert_value;
     }
 
     /**

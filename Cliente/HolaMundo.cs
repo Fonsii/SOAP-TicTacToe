@@ -183,8 +183,15 @@ namespace HolaMundo
 			switch (moveIndex)
 			{
 				case 1000:
-					MessageBox.Show("Felicidades, usted ha ganado!");
-					LeaderboardCheck();
+					if (LeaderboardCheck() == 1)
+					{
+						MessageBox.Show("Felicidades, usted ha ganado y ingresado al leaderboard!");
+					}
+					else 
+					{
+						MessageBox.Show("Felicidades, usted ha ganado!");
+					}
+
 					ResetBoard();
 					break;
 
@@ -218,7 +225,7 @@ namespace HolaMundo
 			MessageBox.Show(proxy.TopPlays());
 		}
 
-		private void LeaderboardCheck() 
+		private int LeaderboardCheck() 
 		{
 			String name = "Jugador";
 
@@ -227,7 +234,7 @@ namespace HolaMundo
 				name = this.userName.Text;
 			}
 
-			MessageBox.Show(proxy.LeaderboardCheck(name).ToString());
+			return proxy.LeaderboardCheck(name);
 		}
 
 		/// <summary>
