@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ECCI_TicTacToe" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="ECCI_TicTacToe" targetNamespace="urn:ECCI_TicTacToe" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:ECCI_TicTacToe" />
+  </wsdl:types>
+  <wsdl:message name="moveIn">
+    <wsdl:part name="moveIndex" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="moveOut">
+    <wsdl:part name="return" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="leaderboardCheckIn">
+    <wsdl:part name="name" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="intOut">
+    <wsdl:part name="return" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="stringOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="begin" />
+  <wsdl:message name="output" />
+  <wsdl:portType name="ECCI_TicTacToePort">
+    <wsdl:operation name="doMove">
+      <documentation>Realiza el siguiente movimiento.</documentation>
+      <wsdl:input message="tns:moveIn" />
+      <wsdl:output message="tns:moveOut" />
+    </wsdl:operation>
+    <wsdl:operation name="resetBoard">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:begin" />
+      <wsdl:output message="tns:output" />
+    </wsdl:operation>
+    <wsdl:operation name="getBoardStatus">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:begin" />
+      <wsdl:output message="tns:intOut" />
+    </wsdl:operation>
+    <wsdl:operation name="topPlays">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:begin" />
+      <wsdl:output message="tns:stringOut" />
+    </wsdl:operation>
+    <wsdl:operation name="leaderboardCheck">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:leaderboardCheckIn" />
+      <wsdl:output message="tns:intOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ECCI_TicTacToeBinding" type="tns:ECCI_TicTacToePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="doMove">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#doMove" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="resetBoard">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#resetBoard" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBoardStatus">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#getBoardStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="topPlays">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#topPlays" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leaderboardCheck">
+      <soap:operation soapAction="urn:ECCI_TicTacToe#TicTacToe#leaderboardCheck" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECCI_TicTacToe" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ECCI_TicTacToeService">
+    <wsdl:port name="ECCI_TicTacToePort" binding="tns:ECCI_TicTacToeBinding">
+      <soap:address location="http://titanic.ecci.ucr.ac.cr:80/~eb93986/TicTacToe-RPC-Encoded/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

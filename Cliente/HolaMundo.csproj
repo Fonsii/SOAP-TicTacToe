@@ -118,11 +118,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\ECCI_TicTacToe_Titanic\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="HolaMundo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TicTacToeProxy.cs" />
     <Content Include="App.ico" />
+    <None Include="Connected Services\ECCI_TicTacToe_Titanic\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ECCI_TicTacToe_Titanic\configuration.svcinfo" />
+    <None Include="Connected Services\ECCI_TicTacToe_Titanic\configuration91.svcinfo" />
     <None Include="Connected Services\ECCI_HolaMundo\ECCI_TicTacToe.wsdl" />
     <None Include="Connected Services\ECCI_TicTacToe\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
@@ -141,6 +152,7 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Connected Services\ECCI_TicTacToe\ECCI_TicTacToe.wsdl" />
+    <None Include="Connected Services\ECCI_TicTacToe_Titanic\ECCI_TicTacToe.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -155,6 +167,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ECCI_HolaMundo\" />
     <WCFMetadataStorage Include="Connected Services\ECCI_TicTacToe\" />
+    <WCFMetadataStorage Include="Connected Services\ECCI_TicTacToe_Titanic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

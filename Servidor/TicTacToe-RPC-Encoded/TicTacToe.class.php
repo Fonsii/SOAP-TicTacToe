@@ -79,7 +79,7 @@ class TicTacToe {
             $name_user = str_replace("\n","",$record[0]);
             $time = str_replace("\n","",$record[1]);
             if($time != "" && $name_user != ""){
-                $this->leaderboard[] = new entryLeaderboard($name_user, $time);
+                $this->leaderboard[] = new EntryLeaderboard($name_user, $time);
             }
 		}
 
@@ -92,7 +92,7 @@ class TicTacToe {
             
             if(count($this->leaderboard) == 0)
             {
-                $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+                $new_leaderboard[] = new EntryLeaderboard($name, time() - $this->start_time);
                 $insert_value = 1;
             }
             else
@@ -100,7 +100,7 @@ class TicTacToe {
 
                 foreach ($this->leaderboard as &$entry) {
                     if ($insert_value == 0 && $entry->getTime() > time() - $this->start_time) {
-                        $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+                        $new_leaderboard[] = new EntryLeaderboard($name, time() - $this->start_time);
                         $insert_value = 1;
                     }
                     $new_leaderboard[] = $entry;
@@ -109,7 +109,7 @@ class TicTacToe {
                 if($insert_value == 0)
                 {
                     $insert_value = 1;
-                    $new_leaderboard[] = new entryLeaderboard($name, time() - $this->start_time);
+                    $new_leaderboard[] = new EntryLeaderboard($name, time() - $this->start_time);
                 }
             }
 
@@ -121,7 +121,7 @@ class TicTacToe {
                 if ($insert_value == 0 && intval($entry->getTime()) > time() - $this->start_time) 
                 {
                     $insert_value = 1;
-                    $new_leaderboard[] = new entryLeaderboard($name, time() -$this->start_time);
+                    $new_leaderboard[] = new EntryLeaderboard($name, time() -$this->start_time);
                 }
                 if (count($new_leaderboard) == 10)
                 {
@@ -236,7 +236,7 @@ class TicTacToe {
     }
 }
 
-class entryLeaderboard {
+class EntryLeaderboard {
     private $name;
     private $time;
 
